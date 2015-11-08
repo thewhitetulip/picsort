@@ -1,17 +1,25 @@
 Picsort
 =================
 
-This started as an effort to sort images into individual folders, I had gone to a place where I had taken 300 photos and it was boring to segregate them into distinct folders based on the name of the person the photo was in so I wrote a webapp to assist me with that task.
+This started as an effort to sort images into individual folders, I had gone to a place where I had taken 300 photos 
+and it was boring to segregate them into distinct folders based on the name of the person the photo was in so 
+I wrote a webapp to assist me with that task.
 
-How does it work?
-====================
+How to make it work?
+===================
 
-Put the photos in the public folder and run the script insert.py, it'll generate insert statements, create a sqlite3 database with the DDL given below.
+1. either clone the repo or do a go get, or download the release from the link above
+2. paste your photos in the public folder
+3. run the binary or do a `go run main.go`
+4. then open localhost:8080 in the browser, it'll show you pages with the image and a input box for the tag
+   use a comma seperated tag list to indicate multiple tags like c,java,python
+5. when all the photos are tagged, the page will give you the link to sort the images, it'll generate one folder for each tag in the result folder
 
-Then run the binary
+Note: start the webapp only after you have pasted the photos in the public folder this app is programmed to read the public folder and insert the files into
+the database as one entry, so make sure you have only images pasted, it won't work if you paste any random file. When you are done pasting photos, start the server,
+it'll read the folder and populate the database.
 
-I have packaged it as a zip, you can just download it from the releases folder on here, all you have to do is run the insert.py file from the command line and execute the insert statements into the sqlite3 database.
-
-Then go to `localhost:8080`, you'll see a form which'll show the photo and a text box for the photo's tag, there is another input box stating the name of the photo, do not change it. After all photos are done the page will give the link to sorting the photos, click on the link and sit back and relax as it'll create folders for the names you have given in tags, for multiple names use a comma separated list for instance if the photo has three people, suraj kiran and rohit then put the tag as suraj,kiran,rohit. It'll create three folders and copy the photo in each folder, please make sure you give the right tag, else it'll give incorrect output! This doesn't use AI or face detection to find out who is in the photo.
+This webapp uses a sqlite3 database which is a part of the repo. In case you want to make your own sqlite3 file, use this schema
+`CREATE TABLE picture( name varchar(100), tags varchar(100));`
 
 Released under the MIT license, enjoy!

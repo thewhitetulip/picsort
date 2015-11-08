@@ -9,7 +9,7 @@
 		
 		{{ else }} 
 		
-		<p>{{.Remaining}} pictures are</p>
+		<p>{{.Remaining}} picture(s) are left</p>
 		
 		<img src="/static/{{.Name}}" height="500" width="900">
 		<form action="/" method="POST">

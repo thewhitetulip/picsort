@@ -60,31 +60,51 @@ func Initialize() {
 	if err != nil {
 		fmt.Println(err)
 	}
+	
+	rows, err := db.Query("select count(*) from picture");
+	checkError(err, "select count")
+	
+	var count int
+	insertStmt := "insert into picture(name) values("
+	if rows.Next() {
+		rows.Scan(&count)
+	}
+	fmt.Println(count)
+	rows.Close()
+	if count == 0 {
+			files, err := ioutil.ReadDir("./public")
+			checkError(err, "reading files")
+			for _, value := range files {
+				if !value.IsDir() {
+					_, err := db.Exec(insertStmt+"\""+strings.Trim(value.Name(), " ")+"\");")
+					checkError(err, "inserting values")
+				}
+			}
+		}
 }
 
 func GetPhoto()  (string, int) {	
 	var name string
 	var remaining int
 	
-	rows, err := db.Query("select name from picture where length(tags)<1 limit 1;")
-
+	rows, err := db.Query("select name from picture where tags is null limit 1;")
+	defer rows.Close()
 	checkError(err, "GetPhoto")
 	
-	defer rows.Close()
 	if rows.Next() {
 		err = rows.Scan(&name)
 		checkError(err, "GetPhoto")
 	}
 	
-	rows, err = db.Query("select count(*) from picture where length(tags)<1 limit 1;")
+	defer rows.Close()
+	rows, err = db.Query("select count(*) from picture where tags is null limit 1;")
 	checkError(err, "GetPhoto")
 	
-	defer rows.Close()
 	if rows.Next(){
 		err = rows.Scan(&remaining)
 		checkError(err, "GetPhoto")		
 	}
-	
+
 	return name, remaining
 }
 

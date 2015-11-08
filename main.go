@@ -36,14 +36,12 @@ func imageHandler(w http.ResponseWriter, r *http.Request){
 }
 
 func main() {
-	
-	
 	PORT := ":8080"
-	http.HandleFunc("/", baseHandler)
 	database.Initialize()
 	
+	http.HandleFunc("/", baseHandler)
 	http.HandleFunc("/sort/", imageHandler)
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("./public/"))))
 	fmt.Println("running on port 8080\n")
-	http.ListenAndServe(PORT, nil)
+	fmt.Println(http.ListenAndServe(PORT, nil))
 }
