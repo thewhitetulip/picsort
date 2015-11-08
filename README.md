@@ -9,7 +9,7 @@ How to make it work?
 ===================
 
 1. either clone the repo or do a go get, or download the release from the link above
-2. paste your photos in the public folder
+2. create a public folder if it doesn't exist and paste your photos in it
 3. run the binary or do a `go run main.go`
 4. then open localhost:8080 in the browser, it'll show you pages with the image and a input box for the tag
    use a comma seperated tag list to indicate multiple tags like c,java,python
