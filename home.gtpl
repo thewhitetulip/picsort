@@ -19,7 +19,6 @@
 		
 		{{if eq .Remaining 0}}
 				<p>That is the end of it, <a href="/sort/" >sort</a> them now</p>
-				<p>You can <a href='/delete/'>delete all</a> entries of database & pictures if you want </p>
 		{{ else }} 
 		<span style="float:left;">
 		<img src="/static/{{.Name}}" >
